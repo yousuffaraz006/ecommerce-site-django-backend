@@ -4,6 +4,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from base.views import *
+from backend.settings import BASE_DIR
+import os
 
 urlpatterns = [
   path('admin/', admin.site.urls),
@@ -13,4 +15,6 @@ urlpatterns = [
   path('', include('base.urls')),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+  urlpatterns += static(settings.STATIC_URL, document_root=os.path.join(BASE_DIR, 'base/static'))
+  urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
